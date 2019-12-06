@@ -10,7 +10,7 @@
 """
 
 from configparser import NoOptionError, NoSectionError, SafeConfigParser
-from urllib import pathname2url
+from urllib.request import pathname2url
 from urlparse import urljoin
 import os
 
