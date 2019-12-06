@@ -9,7 +9,7 @@
     :license: BSD, see LICENSE for more details.
 """
 
-from ConfigParser import NoOptionError, NoSectionError, SafeConfigParser
+from configparser import NoOptionError, NoSectionError, SafeConfigParser
 from urllib import pathname2url
 from urlparse import urljoin
 import os
