@@ -11,7 +11,7 @@
 
 from configparser import NoOptionError, NoSectionError, SafeConfigParser
 from urllib.request import pathname2url
-from urlparse import urljoin
+from urllib.parse import urljoin
 import os
 
 
