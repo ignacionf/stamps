@@ -1,6 +1,13 @@
 Changelog
 ---------
 
+Version 0.9.3
+^^^^^^^^^^^^^
+* support prod via config
+* support version 90
+* support verision via config
+* dynamic names of datatypes
+
 Version 0.9.1
 ^^^^^^^^^^^^^
 
