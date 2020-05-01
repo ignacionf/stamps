@@ -104,7 +104,7 @@ class StampsTestCase(TestCase):
         type = self.service.create("AccountType")
         registration.AccountType = type.OfficeBasedBusiness
         result = self.service.register_account(registration)
-        print result
+        print(result)
 
     def _test_1(self):
         """Test postage purchase.
@@ -117,11 +117,11 @@ class StampsTestCase(TestCase):
 
         while result.PurchaseStatus in (status.Pending, status.Processing):
             seconds = 32 if seconds * 2 >= 32 else seconds * 2
-            print "Waiting {0:d} seconds to get status...".format(seconds)
+            print("Waiting {0:d} seconds to get status...".format(seconds))
             sleep(seconds)
             result = self.service.get_postage_status(transaction_id)
 
-        print result
+        print(result)
 
     def test_2(self):
         """Test label generation.
@@ -136,7 +136,7 @@ class StampsTestCase(TestCase):
         self.service.get_tracking(label.StampsTxID)
         self.service.get_tracking(label.TrackingNumber)
         self.service.remove_label(label.StampsTxID)
-        print label
+        print(label)
 
     def test_3(self):
         """Test authentication retry.
@@ -146,4 +146,4 @@ class StampsTestCase(TestCase):
         self.service.get_account()
         self.service.plugin.authenticator = authenticator
         result = self.service.get_account()
-        print result
+        print(result)

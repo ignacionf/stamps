@@ -15,9 +15,6 @@ from urllib.parse import urljoin
 import os
 
 
-VERSION = 49
-
-
 class StampsConfiguration(object):
     """Stamps service configuration. The service configuration may be provided
     directly via parameter values, or it can be read from a configuration file.
@@ -37,15 +34,15 @@ class StampsConfiguration(object):
         that represents your application.
     :param username: Default `None`. Stamps.com account username.
     :param password: Default `None`. Stamps.com password.
-    :param wsdl: Default `None`. WSDL URI. Use ``'testing'`` to use the test
-        server WSDL.
+    :param prod: Default `False`. Use production endpoint, default use testing
     :param port: Default `None`. The name of the WSDL port to use.
+    :param version: Default `90`. Version of API
     :param file_name: Default `None`. Optional configuration file name.
     :param section: Default ``'default'``. The configuration section to use.
     """
 
     def __init__(self, integration_id=None, username=None, password=None,
-            wsdl=None, port=None, file_name=None, section="default"):
+            prod=False, port=None, file_name=None, version=90, section="default"):
         parser = SafeConfigParser()
 
         if file_name:
@@ -57,23 +54,21 @@ class StampsConfiguration(object):
                 integration_id)
         self.username = self.__get(parser, section, "username", username)
         self.password = self.__get(parser, section, "password", password)
-        self.wsdl = self.__get(parser, section, "wsdl", wsdl)
         self.port = self.__get(parser, section, "port", port)
+        self.prod = self.__get(parser, section, "prod", prod)
+        self.version = self.__get(parser, section, "version", version)
 
-        if self.wsdl is None or wsdl == "testing":
-            file_path = os.path.abspath(__file__)
-            directory_path = os.path.dirname(file_path)
+        if self.prod:
+            nocloc = "swsim.stamps.com"
+        else:
+            nocloc = "swsim.testing.stamps.com"
 
-            if wsdl == "testing":
-                file_name = "stamps_v{0}.test.wsdl".format(VERSION)
-            else:
-                file_name = "stamps_v{0}.wsdl".format(VERSION)
-
-            wsdl = os.path.join(directory_path, "wsdls", file_name)
-            self.wsdl = urljoin("file:", pathname2url(wsdl))
+        self.wsdl = "https://{}/swsim/swsimv{}.asmx?wsdl".format(
+                nocloc,
+                self.version)
 
         if self.port is None:
-            self.port = "SwsimV{0}Soap12".format(VERSION)
+            self.port = "SwsimV{0}Soap12".format(self.version)
 
         assert self.integration_id
         assert self.username

@@ -145,11 +145,16 @@ class StampsService(BaseService):
     def create_add_on(self):
         """Create a new add-on object.
         """
-        return self.create("AddOnV7")
+        name = [x for x in self.client.wsdl.schema.types.keys() 
+                if x[0][0:6] == "AddOnV"][0][0]
+        return self.create(name)
+        #return self.create("AddOnV16")
 
     def create_customs(self):
         """Create a new customs object.
         """
+        name = [x for x in self.client.wsdl.schema.types.keys() 
+                if x[0][0:8] == "CustomsV"][0][0]
         return self.create("CustomsV3")
 
     def create_array_of_customs_lines(self):
@@ -185,7 +190,10 @@ class StampsService(BaseService):
     def create_shipping(self):
         """Create a new shipping object.
         """
-        return self.create("RateV18")
+        name = [x for x in self.client.wsdl.schema.types.keys()
+                if x[0][0:5] == "RateV"][0][0]
+        return self.create(name)
+        #return self.create("RateV33")
 
     def get_address(self, address):
         """Get a shipping address.
