@@ -42,7 +42,8 @@ class StampsConfiguration(object):
     """
 
     def __init__(self, integration_id=None, username=None, password=None,
-            prod=False, port=None, file_name=None, version=90, section="default"):
+                 prod=False, port=None, file_name=None, version=90,
+                 section="default"):
         parser = SafeConfigParser()
 
         if file_name:
@@ -51,7 +52,7 @@ class StampsConfiguration(object):
             parser.read([os.path.expanduser("~/.stamps.cfg")])
 
         self.integration_id = self.__get(parser, section, "integration_id",
-                integration_id)
+                                         integration_id)
         self.username = self.__get(parser, section, "username", username)
         self.password = self.__get(parser, section, "password", password)
         self.port = self.__get(parser, section, "port", port)
@@ -64,8 +65,8 @@ class StampsConfiguration(object):
             nocloc = "swsim.testing.stamps.com"
 
         self.wsdl = "https://{}/swsim/swsimv{}.asmx?wsdl".format(
-                nocloc,
-                self.version)
+            nocloc,
+            self.version)
 
         if self.port is None:
             self.port = "SwsimV{0}Soap12".format(self.version)

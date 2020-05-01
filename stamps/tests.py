@@ -132,7 +132,7 @@ class StampsTestCase(TestCase):
         to_address = get_to_address(self.service)
         transaction_id = datetime.now().isoformat()
         label = self.service.get_label(from_address, to_address, rate,
-                transaction_id=transaction_id)
+                                       transaction_id=transaction_id)
         self.service.get_tracking(label.StampsTxID)
         self.service.get_tracking(label.TrackingNumber)
         self.service.remove_label(label.StampsTxID)

@@ -140,20 +140,20 @@ class StampsService(BaseService):
         control = account.AccountInfo.PostageBalance.ControlTotal
 
         return self.call("PurchasePostage", PurchaseAmount=amount,
-                ControlTotal=control, IntegratorTxID=transaction_id)
+                         ControlTotal=control, IntegratorTxID=transaction_id)
 
     def create_add_on(self):
         """Create a new add-on object.
         """
-        name = [x for x in self.client.wsdl.schema.types.keys() 
+        name = [x for x in self.client.wsdl.schema.types.keys()
                 if x[0][0:6] == "AddOnV"][0][0]
         return self.create(name)
-        #return self.create("AddOnV16")
+        # return self.create("AddOnV16")
 
     def create_customs(self):
         """Create a new customs object.
         """
-        name = [x for x in self.client.wsdl.schema.types.keys() 
+        name = [x for x in self.client.wsdl.schema.types.keys()
                 if x[0][0:8] == "CustomsV"][0][0]
         return self.create("CustomsV3")
 
@@ -207,7 +207,7 @@ class StampsService(BaseService):
         return self.call("GetAccountInfo")
 
     def get_label(self, from_address, to_address, rate, transaction_id,
-            customs=None, sample=False):
+                  customs=None, sample=False):
         """Get a shipping label.
 
         :param from_address: The shipping 'from' address.
@@ -219,8 +219,8 @@ class StampsService(BaseService):
         :param sample: Default ``False``. Get a sample label without postage.
         """
         return self.call("CreateIndicium", IntegratorTxID=transaction_id,
-                Rate=rate, From=from_address, To=to_address, Customs=customs,
-                SampleOnly=sample)
+                         Rate=rate, From=from_address, To=to_address,
+                         Customs=customs, SampleOnly=sample)
 
     def get_postage_status(self, transaction_id):
         """Get postage purchase status.
