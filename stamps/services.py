@@ -193,7 +193,6 @@ class StampsService(BaseService):
         name = [x for x in self.client.wsdl.schema.types.keys()
                 if x[0][0:5] == "RateV"][0][0]
         return self.create(name)
-        #return self.create("RateV33")
 
     def get_address(self, address):
         """Get a shipping address.
